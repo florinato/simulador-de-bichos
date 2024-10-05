@@ -22,32 +22,39 @@ class Mapa:
         self.depredadores = self.generar_objetos(num_depredadores, 3)
 
  
-    def reproducir_bicho(self, bicho):
-        """Reproduce un bicho en una celda vacía cercana."""
-        fila, col = divmod(bicho.posicion, self.tamaño)
+    def reproducir_bicho(self,bicho):
+        """Clona al bicho con mayor vida y reproduce el resto basado en este bicho."""
+        if not self.bichos:  # Si no hay bichos, no hacemos nada
+            return
 
-        # Buscar una celda vacía alrededor para colocar al nuevo bicho
-        for dx in [-1, 0, 1]:
-            for dy in [-1, 0, 1]:
-                nueva_fila, nueva_col = fila + dx, col + dy
-                if 0 <= nueva_fila < self.tamaño and 0 <= nueva_col < self.tamaño:
-                    if self.matriz[nueva_fila][nueva_col] == 0:  # Si la casilla está libre
-                        nueva_pos = nueva_fila * self.tamaño + nueva_col
-                        
-                        # Clonar la red neuronal del bicho madre
-                        red_neuronal_clonada = RedNeuronalBicho()
-                        # Clonar los pesos y biases de la madre
-                        red_neuronal_clonada.pesos_entrada_oculta = np.copy(bicho.red_neuronal.pesos_entrada_oculta)
-                        red_neuronal_clonada.bias_oculta = np.copy(bicho.red_neuronal.bias_oculta)
-                        red_neuronal_clonada.pesos_oculta_salida = np.copy(bicho.red_neuronal.pesos_oculta_salida)
-                        red_neuronal_clonada.bias_salida = np.copy(bicho.red_neuronal.bias_salida)
-                        
-                        # Crear un nuevo bicho con la red neuronal clonada
-                        nuevo_bicho = Bicho(nueva_pos, red_neuronal_clonada, vida_inicial=self.vida_inicial_bichos, ciclos_reproduccion=self.ciclos_reproduccion)
-                        self.bichos.append(nuevo_bicho)
-                        self.matriz[nueva_fila][nueva_col] = 2  # Colocar el nuevo bicho en el mapa
-                        print(f"Nuevo bicho en posición {nueva_pos}")
-                        break
+        # Encontrar el bicho con la mayor vida
+        bicho_mejor = max(self.bichos, key=lambda b: b.vida)
+
+        for bicho in self.bichos:
+            if bicho.puede_reproducirse():
+                fila, col = divmod(bicho.posicion, self.tamaño)
+
+                # Buscar una celda vacía alrededor para colocar al nuevo bicho
+                for dx in [-1, 0, 1]:
+                    for dy in [-1, 0, 1]:
+                        nueva_fila, nueva_col = fila + dx, col + dy
+                        if 0 <= nueva_fila < self.tamaño and 0 <= nueva_col < self.tamaño:
+                            if self.matriz[nueva_fila][nueva_col] == 0:  # Si la casilla está libre
+                                nueva_pos = nueva_fila * self.tamaño + nueva_col
+
+                                # Clonar la red neuronal del bicho con más vida
+                                red_neuronal_clonada = RedNeuronalBicho()
+                                red_neuronal_clonada.pesos_entrada_oculta = np.copy(bicho_mejor.red_neuronal.pesos_entrada_oculta)
+                                red_neuronal_clonada.bias_oculta = np.copy(bicho_mejor.red_neuronal.bias_oculta)
+                                red_neuronal_clonada.pesos_oculta_salida = np.copy(bicho_mejor.red_neuronal.pesos_oculta_salida)
+                                red_neuronal_clonada.bias_salida = np.copy(bicho_mejor.red_neuronal.bias_salida)
+
+                                # Crear un nuevo bicho con la red neuronal clonada del mejor bicho
+                                nuevo_bicho = Bicho(nueva_pos, red_neuronal_clonada, vida_inicial=self.vida_inicial_bichos, ciclos_reproduccion=self.ciclos_reproduccion)
+                                self.bichos.append(nuevo_bicho)
+                                self.matriz[nueva_fila][nueva_col] = 2  # Colocar el nuevo bicho en el mapa
+                                print(f"Nuevo bicho en posición {nueva_pos}, clonado del bicho con {bicho_mejor.vida} de vida.")
+                                break
 
 
 
