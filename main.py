@@ -12,9 +12,9 @@ ciclos_regeneracion_plantas = 100
 vida_recuperada_al_comer = 150
 vida_perdida_por_ciclo = 5
 vida_inicial_bichos = 1000
-rango_observacion_bichos = 20
-ciclos_reproduccion = 1000
-vida_perdida_por_veneno = 10
+rango_observacion_bichos = 10
+ciclos_reproduccion = 100
+vida_perdida_por_veneno = 100
 
 
 

@@ -5,7 +5,7 @@ class RedNeuronalBicho:
     def __init__(self):
         # 9 entradas (8 para cada una de las direcciones alrededor del bicho y 1 para la vida)
         self.entradas_size = 17
-        self.ocultas_size = 50  # Neuronas ocultas (ajustable)
+        self.ocultas_size = 50 # Neuronas ocultas (ajustable)
         self.salidas_size = 8   # 8 salidas (una para cada dirección)
         
         # Inicialización de los pesos y bias
@@ -34,14 +34,10 @@ class RedNeuronalBicho:
     def activacion_softmax(self, x):
         exp_x = np.exp(x - np.max(x))
         return exp_x / exp_x.sum()
-
-    def ajustar_pesos_con_tasa(self, bicho):
-        """Ajusta los pesos de la red neuronal del bicho en función de la vida."""
-        # La tasa de aprendizaje es inversamente proporcional a la vida
-        tasa_aprendizaje = 1 / (bicho.vida / 100 + 1)
-        
-        # Ajustar pesos y biases de la red
-        self.pesos_entrada_oculta += tasa_aprendizaje * np.random.randn(self.entradas_size, self.ocultas_size)
-        self.bias_oculta += tasa_aprendizaje * np.random.randn(self.ocultas_size)
-        self.pesos_oculta_salida += tasa_aprendizaje * np.random.randn(self.ocultas_size, self.salidas_size)
-        self.bias_salida += tasa_aprendizaje * np.random.randn(self.salidas_size)
+    def clonar(self):
+            clon = RedNeuronalBicho()
+            clon.pesos_entrada_oculta = np.copy(self.pesos_entrada_oculta)
+            clon.bias_oculta = np.copy(self.bias_oculta)
+            clon.pesos_oculta_salida = np.copy(self.pesos_oculta_salida)
+            clon.bias_salida = np.copy(self.bias_salida)
+            return clon
