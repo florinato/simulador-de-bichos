@@ -4,27 +4,34 @@ from visualizadormatriz import VisualizadorMatriz
 
 # Variables configurables
 tamaño_tablero = 40
-num_bichos = 1
-num_plantas = 75
-num_depredadores = 0
-ciclos_regeneracion_plantas = 100  # Ciclos hasta que una planta regenera
-vida_recuperada_al_comer = 150  # Vida que un bicho recupera al comer
-vida_perdida_por_ciclo = 5  # Vida que un bicho pierde en cada ciclo
-vida_inicial_bichos = 1000  # Vida inicial de los bichos
-rango_observacion_bichos = 20  # Rango de observación de los bichos
-ciclos_reproduccion = 500  # Ciclos hasta que un bicho se puede reproducir
-num_plantas_venenosas = 20 # Número de plantas venenosas
+num_bichos = 10
+num_plantas = 500
+num_plantas_venenosas = 50
+num_depredadores = 2
+ciclos_regeneracion_plantas = 100
+vida_recuperada_al_comer = 150
+vida_perdida_por_ciclo = 5
+vida_inicial_bichos = 1000
+rango_observacion_bichos = 20
+ciclos_reproduccion = 1000
+vida_perdida_por_veneno = 10
 
-# Crear el gestor de modelos
-gestor_modelo = ModeloManager("modelo_entrenado.pkl")  # Ruta del modelo guardado
 
-# Cargar o entrenar desde cero
+
+# Crear los gestores de modelos para bichos y depredadores
+gestor_modelo_bicho = ModeloManager("modelo_entrenado.pkl")  # Ruta del modelo de bicho
+
+
+# Cargar o entrenar desde cero para bichos
 try:
-    red_neuronal_cargada = gestor_modelo.cargar_modelo()
-    print("Modelo cargado exitosamente.")
+    red_neuronal_bicho_cargada = gestor_modelo_bicho.cargar_modelo()
+    print("Modelo de bicho cargado exitosamente.")
 except FileNotFoundError:
-    print("No se encontró un modelo previo. Entrenando desde cero...")
-    red_neuronal_cargada = None  # Se entrena desde cero
+    print("No se encontró un modelo previo de bicho. Entrenando desde cero...")
+    red_neuronal_bicho_cargada = None  # Se entrena desde cero
+
+
+
 
 # Inicializar el mapa con las variables configurables
 mapa = Mapa(
@@ -38,16 +45,20 @@ mapa = Mapa(
     vida_perdida_por_ciclo=vida_perdida_por_ciclo,
     vida_inicial_bichos=vida_inicial_bichos,
     rango_observacion_bichos=rango_observacion_bichos,
-    ciclos_reproduccion=ciclos_reproduccion
+    ciclos_reproduccion=ciclos_reproduccion,
+    vida_perdida_por_veneno=vida_perdida_por_veneno,
+
 )
 
 # Crear el visualizador de la matriz
 visualizador = VisualizadorMatriz(frame_size=600)
 
 # Asignar la red neuronal cargada a todos los bichos si existe
-if red_neuronal_cargada:
+if red_neuronal_bicho_cargada:
     for bicho in mapa.bichos:
-        bicho.red_neuronal = red_neuronal_cargada
+        bicho.red_neuronal = red_neuronal_bicho_cargada
+
+
 
 # Simulación automática
 for ciclo in range(100000):
@@ -59,11 +70,14 @@ for ciclo in range(100000):
     # Dibujar la matriz usando el visualizador
     visualizador.dibujar(matriz_actualizada)
 
-    # Guardar el modelo cada 1000 ciclos
+    # Guardar los modelos cada 1000 ciclos
     if ciclo % 1000 == 0:
-        gestor_modelo.guardar_modelo(mapa.bichos[0])  # Guardar el modelo del primer bicho
+        # Guardar el modelo del primer bicho
+        if mapa.bichos:
+            gestor_modelo_bicho.guardar_modelo(mapa.bichos[0])
 
-# Guardar el modelo al finalizar la simulación
-gestor_modelo.guardar_modelo(mapa.bichos[0])
-print("Simulación completada y modelo guardado.")
+
+# Guardar los modelos al finalizar la simulación
+if mapa.bichos:
+    gestor_modelo_bicho.guardar_modelo(mapa.bichos[0])
 

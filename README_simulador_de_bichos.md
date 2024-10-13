@@ -57,7 +57,7 @@ pip install numpy
 ### 3. Ejecutar el simulador:
 
 ```bash
-python src2/main.py
+python simulador-de-bichos/main.py
 ```
 
 ### 4. Guardar y cargar modelos
