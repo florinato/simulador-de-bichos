@@ -4,7 +4,7 @@ from visualizadormatriz import VisualizadorMatriz
 
 # Variables configurables
 tamaño_tablero = 40
-num_bichos = 10
+num_bichos = 20
 num_plantas = 500
 num_plantas_venenosas = 50
 num_depredadores = 2
@@ -13,7 +13,7 @@ vida_recuperada_al_comer = 150
 vida_perdida_por_ciclo = 5
 vida_inicial_bichos = 1000
 rango_observacion_bichos = 10
-ciclos_reproduccion = 100
+ciclos_reproduccion = 1000
 vida_perdida_por_veneno = 100
 
 
