@@ -1,7 +1,7 @@
 
 # Simulador de Bichos 🐛
 
-**Simulador de Bichos** es un proyecto de simulación basado en inteligencia artificial (IA) que recrea el comportamiento de pequeñas criaturas virtuales llamadas "bichos". El objetivo principal es que estos bichos sobrevivan en un ecosistema artificial, buscando comida, evitando plantas venenosas y aprendiendo a tomar decisiones eficientes para maximizar su vida y reproducirse. La simulación implementa redes neuronales simples que les permiten a los bichos tomar decisiones basadas en su entorno y en su e...
+**Simulador de Bichos** es un proyecto de simulación basado en inteligencia artificial (IA) que recrea el comportamiento de pequeñas criaturas virtuales llamadas "bichos". El objetivo principal es que estos bichos sobrevivan en un ecosistema artificial, buscando comida, evitando plantas venenosas y aprendiendo a tomar decisiones eficientes para maximizar su vida y reproducirse. La simulación implementa redes neuronales simples que les permiten a los bichos tomar decisiones basadas en su entorno y en su percepción, adaptándose dinámicamente a los cambios en el ecosistema.
 
 ## Características del proyecto
 
@@ -52,6 +52,8 @@ cd simulador-de-bichos
 
 ```bash
 pip install numpy
+pip install tkinter
+pip install pickle
 ```
 
 ### 3. Ejecutar el simulador:
@@ -81,3 +83,4 @@ Algunas ideas para futuras mejoras:
 - **Depredadores**: Añadir criaturas depredadoras que cazan a los bichos para aumentar la dificultad.
 - **Sensores adicionales**: Incluir otros estímulos como la temperatura o el nivel de hambre para tomar decisiones más complejas.
 - **Mutación genética**: Implementar mutaciones aleatorias en las redes neuronales durante la reproducción para simular la evolución.
+- **Mejorar la percepcion del bicho**: inplementar un vision direccional.
