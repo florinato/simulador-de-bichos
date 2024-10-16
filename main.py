@@ -5,8 +5,8 @@ from visualizadormatriz import VisualizadorMatriz
 # Variables configurables
 tamaño_tablero = 40
 num_bichos = 20
-num_plantas = 500
-num_plantas_venenosas = 50
+num_plantas = 400
+num_plantas_venenosas = 40
 num_depredadores = 2
 ciclos_regeneracion_plantas = 100
 vida_recuperada_al_comer = 150
@@ -33,7 +33,7 @@ except FileNotFoundError:
 
 
 
-# Inicializar el mapa con las variables configurables
+# Inicializar el mapa con las variables configurables 
 mapa = Mapa(
     tamaño=tamaño_tablero,
     num_bichos=num_bichos,

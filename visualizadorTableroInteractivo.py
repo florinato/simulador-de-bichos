@@ -88,5 +88,5 @@ class VisualizadorTableroInteractivo:
         self.root.update()
 
 # Ejecutar la aplicación
-visualizador = VisualizadorTableroInteractivo(tamaño=40, frame_size=800)
+visualizador = VisualizadorTableroInteractivo(tamaño=35, frame_size=800)
 visualizador.root.mainloop()
