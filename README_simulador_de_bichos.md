@@ -76,9 +76,9 @@ Este proyecto está desarrollado en Python y utiliza las siguientes bibliotecas:
 `git clone https://github.com/florinato/simulador-de-bichos.git`
 
 2. Instalar las dependencias:
-pip install numpy
-pip install tkinter
-pip install pickle
+      pip install numpy
+      pip install tkinter
+      pip install pickle
 
 3. Ejecutar el simulador:
 cd simulador-de-bichos
