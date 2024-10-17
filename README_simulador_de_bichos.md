@@ -79,7 +79,9 @@ Este proyecto está desarrollado en Python y utiliza las siguientes bibliotecas:
 
 
       pip install numpy
+
       pip install tkinter
+      
       pip install pickle
 
 3. Ejecutar el simulador:
