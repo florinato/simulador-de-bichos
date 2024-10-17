@@ -81,12 +81,15 @@ Este proyecto está desarrollado en Python y utiliza las siguientes bibliotecas:
       pip install numpy
 
       pip install tkinter
-      
+
       pip install pickle
 
 3. Ejecutar el simulador:
-cd simulador-de-bichos
-python main.py
+
+
+      cd simulador-de-bichos
+      
+      python main.py
 
 
 4. Guardar y cargar modelos
