@@ -73,7 +73,7 @@ Este proyecto está desarrollado en Python y utiliza las siguientes bibliotecas:
 ## Instalación y uso
 1. Clonar el repositorio:
 
-git clone https://github.com/florinato/simulador-de-bichos.git cd simulador-de-bichos
+`git clone https://github.com/florinato/simulador-de-bichos.git`
 
 2. Instalar las dependencias:
 pip install numpy
